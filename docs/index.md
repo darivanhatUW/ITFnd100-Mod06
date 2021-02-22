@@ -13,7 +13,9 @@
   <h2>Assignment06</h2>
   <a href="https://github.com/darivanhatUW/IntroToProg-Python-Mod06/blob/main/docs/Assigment06_dvlachos.py">View Darivanh's code for Assignment06</a>
   <a href=""></a>
-  
+  <hr>
+  <br />
+  <h2>Default Markdown Code Provided in Class</h2>
 </body>
 </html>
 
