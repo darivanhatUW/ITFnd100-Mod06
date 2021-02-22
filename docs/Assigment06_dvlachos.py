@@ -5,9 +5,10 @@
 #              in "ToDoToDoList.txt" into a python Dictionary.
 #              Add the each dictionary "row" to a python list "table"
 # ChangeLog (Who,When,What):
-# RRoot,1.1.2030,Created started script
-# RRoot,1.1.2030,Added code to complete assignment 5
-# Dvlachos,2.17.2021,Modified code to complete assignment 6
+# RRoot,1.1.2030, Created started script
+# RRoot,1.1.2030, Added code to complete assignment 5
+# Dvlachos,2.17.2021, Modified code to complete assignment 6
+# Dvlachos,2.21.2021, Restructured code to eliminate the user of global variables
 # ---------------------------------------------------------------------------- #
 
 # Data ---------------------------------------------------------------------- #
@@ -17,10 +18,10 @@ objFile = None   # An object that represents a file
 dicRow = {}  # A row of data separated into elements of a dictionary {Task,Priority}
 list_of_rows = []  # A list that acts as a 'table' of rows
 strChoice = ""  # Captures the user option selection
-strTask = ""  # Captures the user task data
-strPriority = ""  # Captures the user priority data
+str_task = ""  # Captures the user task data
+str_priority = ""  # Captures the user priority data
 strStatus = ""  # Captures the status of an processing functions
-task = ""
+
 # Processing  --------------------------------------------------------------- #
 class Processor:
     """  Performs Processing tasks """
@@ -43,25 +44,39 @@ class Processor:
         return list_of_rows, 'Success'
 
     @staticmethod
-    def add_data_to_list(strTask, strPriority, list_of_rows):
+    def add_data_to_list(str_task, str_priority, list_of_rows):
         """ Puts data into dictionary rows, then appends the rows to table called list_of_rows
 
-        :param strTask: (string) with name of task:
-        :param strPriority: (string) with level of priority:
+        :param str_task: (string) with name of task:
+        :param str_priority: (string) with level of priority:
         :return: (list) of dictionary rows
         """
-        dicRow = {"Task": strTask.title(), "Priority": strPriority.lower().strip()}  # Adds the user input in the dictionary
+        dicRow = {"Task": str_task.title(), "Priority": str_priority.lower().strip()}  # Adds the user input in the dictionary
         list_of_rows.append(dicRow)  # Appends the new user input to the table
         return list_of_rows, 'Success'
 
     @staticmethod
-    def remove_data_from_list(task, list_of_rows):
-        # global list_of_rows
-        list_of_rows = [row for row in list_of_rows if not (row["Task".title()] == task)]
+    def remove_data_from_list(remove_task, list_of_rows):
+        """ Removes data from the list_of_rows
+
+        :param remove_task: (string)
+        :param list_of_rows:
+        :return: (list) of dictionary rows
+        """
+        for row in list_of_rows:
+            if row["Task"] == remove_task:
+                list_of_rows.remove(row)
+                print(remove_task, " deleted.")
         return list_of_rows, 'Success'
 
     @staticmethod
     def write_data_to_file(file_name, list_of_rows):
+        """ Writes the data to the file from the list_of_rows
+
+        :param file_name: (object) saved as .txt:
+        :param list_of_rows: (list) of dictionary rows:
+        :return: (list) of dictionary rows
+        """
         file = open(file_name, "w")  # Opens the "ToDoFile.txt"
         for row in list_of_rows: # Adds items from table to text file
             file.write(row["Task"] + ", " + row["Priority"] + "\n")
@@ -132,21 +147,23 @@ class IO:
 
     @staticmethod
     def input_new_task_and_priority():
-        """ Prompt to add a new task and priority from user input """
+        """ Prompt to add a new task and priority from user input
 
-        global strTask
-        global strPriority
-        strTask = (input("Which task would you like to add? ")).title()  # Ask the user to input a task
-        strPriority = (input("What is its priority? (Choose: high, medium, low) ")).lower()  # user input priority level
-        # return task, priority
+        :return: strings
+        """
+        str_task = (input("Which task would you like to add? ")).title()  # Ask the user to input a task
+        str_priority = (input("What is its priority? (Choose: high, medium, low) ")).lower()  # user input priority level
+        return str_task, str_priority
+
 
     @staticmethod
-    def input_task_to_remove(task):
-        """ Prompt to delete task from user input """
+    def input_task_to_remove():
+        """ Prompt to delete task from user input
 
-        #global task
-        task = (input("What task would you like removed? ")).title()
-        return task
+        :return: string
+        """
+        remove_task = (input("What task would you like removed? ")).title()
+        return remove_task
         # return task
 
 # Main Body of Script  ------------------------------------------------------ #
@@ -163,14 +180,14 @@ while(True):
     
     # Step 4 - Process user's menu choice
     if strChoice.strip() == '1':  # Add a new Task
-        IO.input_new_task_and_priority()
-        Processor.add_data_to_list(strTask, strPriority, list_of_rows)
+        str_task, str_priority = IO.input_new_task_and_priority()
+        Processor.add_data_to_list(str_task, str_priority, list_of_rows)
         IO.input_press_to_continue(strStatus)
         continue  # to show the menu
 
     elif strChoice == '2':  # Remove an existing Task
-        IO.input_task_to_remove(task)
-        Processor.remove_data_from_list(task, list_of_rows)
+        IO.input_task_to_remove()
+        list_of_rows, strStatus = Processor.remove_data_from_list(str_task, list_of_rows)
         IO.input_press_to_continue(strStatus)
         continue  # to show the menu
 
