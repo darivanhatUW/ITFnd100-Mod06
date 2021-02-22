@@ -1,2 +1,2 @@
-# ITFnd100-Mod06
+# ITFnd110B-Mod06
 Repository for Intro to Programming - Python
