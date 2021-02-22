@@ -3,7 +3,7 @@
 # Description: Working with functions in a class,
 #              When the program starts, load each "row" of data
 #              in "ToDoToDoList.txt" into a python Dictionary.
-#              Add the each dictionary "row" to a python list "table"
+#              Add each dictionary "row" to a python list "table"
 # ChangeLog (Who,When,What):
 # RRoot,1.1.2030, Created started script
 # RRoot,1.1.2030, Added code to complete assignment 5
