@@ -2,7 +2,6 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Intro to Programming - Python</title>
   <meta name="description" content="Intro to Programming - Python">
   <meta name="author" content="SitePoint">
 
