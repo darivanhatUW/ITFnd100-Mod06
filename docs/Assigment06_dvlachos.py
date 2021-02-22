@@ -14,13 +14,13 @@
 # Data ---------------------------------------------------------------------- #
 # Declare variables and constants
 file_name = "ToDoFile.txt"  # The name of the data file
-objFile = None   # An object that represents a file
-dicRow = {}  # A row of data separated into elements of a dictionary {Task,Priority}
+obj_file = None   # An object that represents a file
+dic_row = {}  # A row of data separated into elements of a dictionary {Task,Priority}
 list_of_rows = []  # A list that acts as a 'table' of rows
-strChoice = ""  # Captures the user option selection
+str_choice = ""  # Captures the user option selection
 str_task = ""  # Captures the user task data
 str_priority = ""  # Captures the user priority data
-strStatus = ""  # Captures the status of an processing functions
+str_status = ""  # Captures the status of an processing functions
 
 # Processing  --------------------------------------------------------------- #
 class Processor:
@@ -51,8 +51,8 @@ class Processor:
         :param str_priority: (string) with level of priority:
         :return: (list) of dictionary rows
         """
-        dicRow = {"Task": str_task.title(), "Priority": str_priority.lower().strip()}  # Adds the user input in the dictionary
-        list_of_rows.append(dicRow)  # Appends the new user input to the table
+        dic_row = {"Task": str_task.title(), "Priority": str_priority.lower().strip()}  # Adds the user input in the dictionary
+        list_of_rows.append(dic_row)  # Appends the new user input to the table
         return list_of_rows, 'Success'
 
     @staticmethod
@@ -66,7 +66,7 @@ class Processor:
         for row in list_of_rows:
             if row["Task"] == remove_task:
                 list_of_rows.remove(row)
-                print(remove_task, " deleted.")
+                print(remove_task, "deleted.")
         return list_of_rows, 'Success'
 
     @staticmethod
@@ -118,7 +118,7 @@ class IO:
     def print_current_Tasks_in_list(list_of_rows):
         """ Shows the current Tasks in the list of dictionaries rows
 
-        :param list_of_rows: (list) of rows you want to display
+        :param list_of_rows: (list) of rows you want to display:
         :return: nothing
         """
         print("******* The current Tasks ToDo are: *******")
@@ -139,7 +139,7 @@ class IO:
     def input_press_to_continue(optional_message=''):
         """ Pause program and show a message before continuing
 
-        :param optional_message:  An optional message you want to display
+        :param optional_message:  An optional message you want to display:
         :return: nothing
         """
         print(optional_message)
@@ -176,40 +176,40 @@ while(True):
     # Step 3 Show current data
     IO.print_current_Tasks_in_list(list_of_rows)  # Show current data in the list/table
     IO.print_menu_Tasks()  # Shows menu
-    strChoice = IO.input_menu_choice()  # Get menu option
+    str_choice = IO.input_menu_choice()  # Get menu option
     
     # Step 4 - Process user's menu choice
-    if strChoice.strip() == '1':  # Add a new Task
+    if str_choice.strip() == '1':  # Add a new Task
         str_task, str_priority = IO.input_new_task_and_priority()
         Processor.add_data_to_list(str_task, str_priority, list_of_rows)
-        IO.input_press_to_continue(strStatus)
+        IO.input_press_to_continue(str_status)
         continue  # to show the menu
 
-    elif strChoice == '2':  # Remove an existing Task
+    elif str_choice == '2':  # Remove an existing Task
         IO.input_task_to_remove()
-        list_of_rows, strStatus = Processor.remove_data_from_list(str_task, list_of_rows)
-        IO.input_press_to_continue(strStatus)
+        list_of_rows, str_status = Processor.remove_data_from_list(str_task, list_of_rows)
+        IO.input_press_to_continue(str_status)
         continue  # to show the menu
 
-    elif strChoice == '3':   # Save Data to File
-        strChoice = IO.input_yes_no_choice("Save this data to file? (y/n) - ")
-        if strChoice.lower() == "y":
+    elif str_choice == '3':   # Save Data to File
+        str_choice = IO.input_yes_no_choice("Save this data to file? (y/n) - ")
+        if str_choice.lower() == "y":
             Processor.write_data_to_file(file_name, list_of_rows)
-            IO.input_press_to_continue(strStatus)
+            IO.input_press_to_continue(str_status)
         else:
             IO.input_press_to_continue("Save Cancelled!")
         continue  # to show the menu
 
-    elif strChoice == '4':  # Reload Data from File
+    elif str_choice == '4':  # Reload Data from File
         print("Warning: Unsaved Data Will Be Lost!")
-        strChoice = IO.input_yes_no_choice("Are you sure you want to reload data from file? (y/n) -  ")
-        if strChoice.lower() == 'y':
+        str_choice = IO.input_yes_no_choice("Are you sure you want to reload data from file? (y/n) -  ")
+        if str_choice.lower() == 'y':
             Processor.read_data_from_file(file_name, list_of_rows)
-            IO.input_press_to_continue(strStatus)
+            IO.input_press_to_continue(str_status)
         else:
-            IO.input_press_to_continue("File Reload  Cancelled!")
+            IO.input_press_to_continue("File Reload Cancelled!")
         continue  # to show the menu
 
-    elif strChoice == '5':  #  Exit Program
+    elif str_choice == '5':  #  Exit Program
         print("Goodbye!")
         break   # and Exit
