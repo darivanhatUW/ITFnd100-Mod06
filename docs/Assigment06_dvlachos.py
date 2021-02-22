@@ -9,6 +9,7 @@
 # RRoot,1.1.2030, Added code to complete assignment 5
 # Dvlachos,2.17.2021, Modified code to complete assignment 6
 # Dvlachos,2.21.2021, Restructured code to eliminate the use of global variables
+# Dvlachos,2.21.2021, Added comments, reformat for consistent naming convention
 # ---------------------------------------------------------------------------- #
 
 # Data ---------------------------------------------------------------------- #
